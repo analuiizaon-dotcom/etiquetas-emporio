@@ -641,16 +641,19 @@ function atualizarPreview() {
   var etqHtml =
     '<div style="width:'+wPx+'px;height:'+hPx+'px;padding:8px 11px;'+
     'background:#fff;border:1px solid #999;border-radius:6px;'+
-    'display:flex;flex-direction:column;justify-content:space-between;'+
+    'display:flex;flex-direction:column;'+
     'font-family:Arial,sans-serif;transform:scale('+scale+');transform-origin:top left;">'+
       '<div style="text-align:center;font-size:'+fnome+'px;font-weight:700;'+
-        'letter-spacing:.3px;color:#111;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+nome+'</div>'+
-      '<div style="text-align:center;display:flex;align-items:baseline;justify-content:center;color:#111;white-space:nowrap;">'+
-        '<span style="font-size:'+frest+'px;">R$&nbsp;</span>'+
-        '<span style="font-size:'+fval+'px;font-weight:700;">'+preco+'</span>'+
-        '<span style="font-size:'+frest+'px;">&nbsp;/&nbsp;'+qtd+'&nbsp;g</span>'+
+        'letter-spacing:.3px;color:#111;line-height:1.2;'+
+        'word-break:break-word;white-space:normal;flex-shrink:0;">'+nome+'</div>'+
+      '<div style="flex:1;display:flex;align-items:center;justify-content:center;">'+
+        '<div style="text-align:center;display:flex;align-items:baseline;justify-content:center;color:#111;white-space:nowrap;">'+
+          '<span style="font-size:'+frest+'px;">R$&nbsp;</span>'+
+          '<span style="font-size:'+fval+'px;font-weight:700;">'+preco+'</span>'+
+          '<span style="font-size:'+frest+'px;">&nbsp;/&nbsp;'+qtd+'&nbsp;g</span>'+
+        '</div>'+
       '</div>'+
-      '<div>'+
+      '<div style="flex-shrink:0;">'+
         '<div style="font-size:'+frod+'px;color:#222;text-align:left;">COD: '+cod+'</div>'+
         '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:3px;">'+
           '<span style="font-size:'+frod+'px;color:#222;white-space:nowrap;">VAL: '+val+'</span>'+
@@ -767,17 +770,19 @@ function montarEtiquetaImpressao(e) {
     '<div style="width:'+cfg.wMm+'mm;height:'+cfg.hMm+'mm;'+
     'background:#fff;border:1px solid #aaa;border-radius:4px;'+
     'padding:3.5mm 5mm;box-sizing:border-box;overflow:hidden;'+
-    'display:flex;flex-direction:column;justify-content:space-between;'+
+    'display:flex;flex-direction:column;'+
     'font-family:Arial,sans-serif;">'+
       '<div style="text-align:center;font-size:'+cfg.fnomePt+'pt;font-weight:700;'+
         'text-transform:uppercase;letter-spacing:.3px;color:#000;line-height:1.2;'+
-        'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+nome+'</div>'+
-      '<div style="text-align:center;display:flex;align-items:baseline;justify-content:center;color:#000;">'+
-        '<span style="font-size:'+cfg.frestPt+'pt;">R$&nbsp;</span>'+
-        '<span style="font-size:'+cfg.fvalPt+'pt;font-weight:700;">'+preco+'</span>'+
-        '<span style="font-size:'+cfg.frestPt+'pt;">&nbsp;/&nbsp;'+qtd+'&nbsp;g</span>'+
+        'word-break:break-word;white-space:normal;flex-shrink:0;">'+nome+'</div>'+
+      '<div style="flex:1;display:flex;align-items:center;justify-content:center;">'+
+        '<div style="text-align:center;display:flex;align-items:baseline;justify-content:center;color:#000;white-space:nowrap;">'+
+          '<span style="font-size:'+cfg.frestPt+'pt;">R$&nbsp;</span>'+
+          '<span style="font-size:'+cfg.fvalPt+'pt;font-weight:700;">'+preco+'</span>'+
+          '<span style="font-size:'+cfg.frestPt+'pt;">&nbsp;/&nbsp;'+qtd+'&nbsp;g</span>'+
+        '</div>'+
       '</div>'+
-      '<div>'+
+      '<div style="flex-shrink:0;">'+
         '<div style="font-size:'+cfg.frodPt+'pt;color:#000;text-align:left;">COD: '+cod+'</div>'+
         '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:1mm;">'+
           '<span style="font-size:'+cfg.frodPt+'pt;color:#000;">VAL: '+val+'</span>'+
