@@ -43,6 +43,64 @@
   .logo { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: 1px; }
   .sub  { font-size: 12px; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
 
+  /* ── Tela de senha ── */
+  #tela-senha {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--preto);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .senha-box {
+    background: #232323;
+    border: 1px solid #444;
+    border-top: 3px solid var(--dourado);
+    border-radius: 12px;
+    padding: 40px 36px;
+    width: 340px;
+    text-align: center;
+  }
+  .senha-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--dourado);
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .senha-sub {
+    font-size: 11px; color: #666;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .senha-label {
+    font-size: 11px; color: #888; font-weight: 700;
+    letter-spacing: .5px; text-transform: uppercase;
+    text-align: left; display: block; margin-bottom: 6px;
+  }
+  .senha-input {
+    width: 100%; padding: 10px 12px;
+    background: #111; border: 1px solid #444; border-radius: 7px;
+    color: #fff; font-size: 15px; font-family: 'Lato', sans-serif;
+    letter-spacing: 3px; text-align: center;
+    transition: border-color .2s;
+  }
+  .senha-input:focus { outline: none; border-color: var(--dourado); }
+  .senha-input.erro  { border-color: #e07070; animation: shake .3s; }
+  .senha-btn {
+    margin-top: 16px; width: 100%;
+    padding: 10px; border-radius: 7px;
+    background: var(--dourado); color: var(--preto);
+    border: none; font-size: 13px; font-weight: 700;
+    font-family: 'Lato', sans-serif; cursor: pointer;
+    letter-spacing: .5px; transition: background .15s;
+  }
+  .senha-btn:hover { background: #d4b47a; }
+  .senha-erro {
+    font-size: 12px; color: #e07070;
+    margin-top: 10px; min-height: 18px;
+  }
+  @keyframes shake {
+    0%,100%{ transform:translateX(0); }
+    25%     { transform:translateX(-6px); }
+    75%     { transform:translateX(6px); }
+  }
+
   /* Status de conexão */
   .status-sync {
     display: flex; align-items: center; gap: 7px;
@@ -204,6 +262,18 @@
 </style>
 </head>
 <body>
+
+<!-- TELA DE SENHA -->
+<div id="tela-senha">
+  <div class="senha-box">
+    <div class="senha-logo">EMPÓRIO ZONA NORTE</div>
+    <div class="senha-sub">Gerenciador de Etiquetas</div>
+    <label class="senha-label" for="campo-senha">&#128274; Senha de acesso</label>
+    <input class="senha-input" id="campo-senha" type="password" placeholder="••••••••" autocomplete="current-password">
+    <div class="senha-erro" id="senha-erro"></div>
+    <button class="senha-btn" id="btn-entrar">Entrar</button>
+  </div>
+</div>
 
 <header>
   <div>
@@ -831,10 +901,39 @@ function renderLista() {
 }
 
 // ═══════════════════════════════════════════════════════════
+//  SENHA DE ACESSO
+//  Para alterar a senha, mude o valor de SENHA_CORRETA abaixo
+// ═══════════════════════════════════════════════════════════
+var SENHA_CORRETA = 'emporio2025';
+
+function tentarEntrar() {
+  var digitada = $id('campo-senha').value;
+  if (digitada === SENHA_CORRETA) {
+    $id('tela-senha').style.display = 'none';
+    $id('campo-senha').value = '';
+  } else {
+    var input = $id('campo-senha');
+    input.classList.add('erro');
+    $id('senha-erro').textContent = 'Senha incorreta. Tente novamente.';
+    input.value = '';
+    setTimeout(function() { input.classList.remove('erro'); }, 400);
+    input.focus();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 //  INICIALIZAÇÃO
 // ═══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
 
+  // ── Senha ──
+  $id('btn-entrar').addEventListener('click', tentarEntrar);
+  $id('campo-senha').addEventListener('keydown', function(ev) {
+    if (ev.key === 'Enter') tentarEntrar();
+  });
+  setTimeout(function() { $id('campo-senha').focus(); }, 100);
+
+  // ── Aplicação ──
   $id('btn-nova').addEventListener('click',     cancelar);
   $id('btn-salvar').addEventListener('click',   salvar);
   $id('btn-cancelar').addEventListener('click', cancelar);
